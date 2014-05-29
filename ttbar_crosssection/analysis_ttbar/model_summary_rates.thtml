@@ -1,0 +1,12 @@
+<p>Rates for all observables and processes as given by the 'nominal' templates. If errors are given, they are MC stat. uncertainties.</p>
+<table cellpadding="2" border="1">
+<tr><th>process / observable</th><th>NJetsNBjets</th></tr>
+<tr><td>dy</td><td>4852.9 +/- 101.5</td></tr>
+<tr><td>fake</td><td>535.15 +/- 19.459</td></tr>
+<tr><td>rare</td><td>485.04 +/- 10.152</td></tr>
+<tr><td>stop</td><td>3741.6 +/- 5.2291</td></tr>
+<tr><td><b>total background</b></td><td>9614.7 +/- 103.98</td></tr>
+<tr><td>ttbar</td><td>43176 +/- 54.66</td></tr>
+<tr><td><b>DATA</b></td><td>55663</td></tr>
+</table>
+

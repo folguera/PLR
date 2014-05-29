@@ -1,0 +1,17 @@
+<h3>Prior Parameters</h3>
+<table cellpadding="2" border="1">
+<tr><th>parameter</th><th>distribution type</th><th>distribution parameters</th></tr>
+<tr><td>jer</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>jes</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>q2</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>mpts</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>btag</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>fake_rate</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>Trig</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>dy_rate</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>les</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>stop_rate</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>lumi</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+<tr><td>rare_rate</td><td>gauss</td><td>width = 1.0; range = [-inf, inf]; mean = 0.0</td></tr>
+</table>
+

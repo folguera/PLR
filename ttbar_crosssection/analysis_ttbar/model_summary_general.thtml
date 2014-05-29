@@ -1,0 +1,29 @@
+<p>Observables (xmin, xmax, nbins):</p>
+<ul>
+<li>NJetsNBjets (0.5, 15.5, 15)</li>
+</ul>
+<p>Background processes:</p>
+<ul>
+<li>dy</li>
+<li>fake</li>
+<li>rare</li>
+<li>stop</li>
+</ul>
+<p>Signal processes:</p><ul>
+<li>ttbar</li>
+</ul>
+<p>Nuisance parameters (includes only those which apply to the background-only model):</p>
+<ul>
+<li>Trig (rate only)</li>
+<li>btag (morph only)</li>
+<li>dy_rate (rate only)</li>
+<li>fake_rate (rate only)</li>
+<li>jer (morph only)</li>
+<li>jes (morph only)</li>
+<li>les (morph only)</li>
+<li>lumi (rate only)</li>
+<li>mpts (morph only)</li>
+<li>q2 (morph only)</li>
+<li>rare_rate (rate only)</li>
+<li>stop_rate (rate only)</li>
+</ul>

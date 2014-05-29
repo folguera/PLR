@@ -1,0 +1,16 @@
+
+
+
+So there is the requirements of at least 2 jets ? May I suggest something slightly different, if it is possible of course :
+
+    - bin 1           NJet=0 (and automatically NBjet=0)
+    - bins 2-3      NJet=1, NBjet =0 (bin2) and NBjet=1 (bin 3)
+    - bins 4-6      NJet=2, NBjet=0(bin4), NBjet=1(bin5), NBjet=2(bin6)
+    - bins 7-9      NJet=3, NBjet=0(bin7), NBjet=1(bin8), NBjet=2(bin8), NBjet=3(bin9)
+    - bins 10-14  NJet>=4, NBjet=0(bin10), NBjet=1(bin11), NBjet=2(bin12), NBjet=3(bin13), NBjet=>4(bin14) 
+Please find attached a root file containing all the information in the format you requested I hope this complies with the conventions from theta.
+
+Concerning uncertainties:
+    - Luminosity is 2.6% if I recall correctly.
+    - stop, vv and fakes we consider a 20% uncertainty on the production cross section.
+    - rare, let's consider a 50% uncertainty on the production cross section (this is the error we use to consider in the same-sign SUSY analysis).

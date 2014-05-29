@@ -1,0 +1,10 @@
+<h2>Stackplots</h2>
+<p>Everything normalized to expectation, i.e., to the normalization in the template input file, possibly scaled via the python script file.</p>
+<p>Color Code:</p><ul>
+<li><span style="background: #edd400;">&nbsp;&nbsp;&nbsp;</span> dy</li>
+<li><span style="background: #f57900;">&nbsp;&nbsp;&nbsp;</span> fake</li>
+<li><span style="background: #c17d11;">&nbsp;&nbsp;&nbsp;</span> rare</li>
+<li><span style="background: #73d216;">&nbsp;&nbsp;&nbsp;</span> stop</li>
+<li><span style="background: #ef2929;">&nbsp;&nbsp;&nbsp;</span> ttbar</li>
+</ul>
+<p>Observable 'NJetsNBjets':<br /><img src="plots/NJetsNBjets_stack.png" /></p>
