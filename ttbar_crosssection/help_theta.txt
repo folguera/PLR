@@ -1,0 +1,31 @@
+//First produce the templates with the macro "ProdTemplate.C"
+root -l ProdTemplate.C+
+
+//one need to edit the macro to configure it : which systematic too account (usefull to exclud some for cross-check) and which jet multiplicity to use (an set bin content to very small values to eclude them (strictly 0 is not supported by theta)).
+
+
+//One can compare the systematic templates with the nominal
+//to make sure it behaves properly. One can do that with the macro CompareSystPlots.C
+//it produced by default a set of plots
+
+root -l CompareSystPlots.C+
+
+//how to run theta-auto
+//after installation
+
+theta_install_directory/utils2/theta-auto.py analysis_ttbar.py 
+
+//the configuration of theta is a python file named analysis_ttbar.py 
+//it contains the description of the statistical model (definition of templates and rate uncertainties)
+//it perform 3 kind of fits 
+ 	//1) "pl_interval" which perform the PLR fit and return the best fit value and its 1 sigma interval, this is the values used for the cross-section
+	//2) "nll_scan" perform also a PLR fit, but rather return the value of the likelihood as a function of "beta_signal" (ratio of measured and the theoretical cross-sections). The profile is stored in a text file (PRL.txt)
+	//3) "mle" a simple maximum likelihod fit, to retrieve the data/MC agreement as well as the value of the nuisance parameters. To perform cross-checks basically. 
+
+
+//after running theta, 
+//one can produce data/MC comparisons of the NJet vs NBJet distribution.
+//there is two option (edit the file to configure) : pre- or post-fit distribution
+root -l PlotFitResults.C+
+
+
