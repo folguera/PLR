@@ -24,7 +24,12 @@ void setNjetSel(TH1F * thehisto, int njetsel){
 }
 
 
-void ProdTemplate(bool addJES, bool addJER, bool addBTag, bool addLES, bool addQ2, bool addMpts, TString outputfilename, int njetsel){
+void ProdTemplate(bool addJES,  bool addJER,
+                  bool addBTag, bool addLES, 
+	          bool addQ2,   bool addMpts, 
+		  bool addPU,   bool addLept,
+		  bool addTrig,
+		  TString outputfilename, int njetsel){
   
   TFile * inputfile       = new TFile("HistosForHL.root");
   
@@ -116,6 +121,42 @@ void ProdTemplate(bool addJES, bool addJER, bool addBTag, bool addLES, bool addQ
   TH1F * NJetsNBjets__fake__mpts__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__fake__mpts__minus" )->Clone(); 
   
   
+  TH1F * NJetsNBjets__ttbar__pu__plus  = (TH1F*)inputfile->Get( "NJetsNBjets__ttbar__pu__plus" )->Clone(); 
+  TH1F * NJetsNBjets__stop__pu__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__stop__pu__plus" )->Clone();  
+  TH1F * NJetsNBjets__dy__pu__plus     = (TH1F*)inputfile->Get( "NJetsNBjets__dy__pu__plus" )->Clone();	
+  TH1F * NJetsNBjets__rare__pu__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__rare__pu__plus" )->Clone();  
+  TH1F * NJetsNBjets__fake__pu__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__fake__pu__plus" )->Clone();  
+  TH1F * NJetsNBjets__ttbar__pu__minus = (TH1F*)inputfile->Get( "NJetsNBjets__ttbar__pu__minus" )->Clone();  
+  TH1F * NJetsNBjets__stop__pu__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__stop__pu__minus" )->Clone(); 
+  TH1F * NJetsNBjets__dy__pu__minus    = (TH1F*)inputfile->Get( "NJetsNBjets__dy__pu__minus" )->Clone();	
+  TH1F * NJetsNBjets__rare__pu__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__rare__pu__minus" )->Clone(); 
+  TH1F * NJetsNBjets__fake__pu__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__fake__pu__minus" )->Clone(); 
+  
+  
+  TH1F * NJetsNBjets__ttbar__lep__plus  = (TH1F*)inputfile->Get( "NJetsNBjets__ttbar__lep__plus" )->Clone(); 
+  TH1F * NJetsNBjets__stop__lep__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__stop__lep__plus" )->Clone();  
+  TH1F * NJetsNBjets__dy__lep__plus     = (TH1F*)inputfile->Get( "NJetsNBjets__dy__lep__plus" )->Clone();	
+  TH1F * NJetsNBjets__rare__lep__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__rare__lep__plus" )->Clone();  
+  TH1F * NJetsNBjets__fake__lep__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__fake__lep__plus" )->Clone();  
+  TH1F * NJetsNBjets__ttbar__lep__minus = (TH1F*)inputfile->Get( "NJetsNBjets__ttbar__lep__minus" )->Clone();  
+  TH1F * NJetsNBjets__stop__lep__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__stop__lep__minus" )->Clone(); 
+  TH1F * NJetsNBjets__dy__lep__minus    = (TH1F*)inputfile->Get( "NJetsNBjets__dy__lep__minus" )->Clone();	
+  TH1F * NJetsNBjets__rare__lep__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__rare__lep__minus" )->Clone(); 
+  TH1F * NJetsNBjets__fake__lep__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__fake__lep__minus" )->Clone(); 
+  
+  TH1F * NJetsNBjets__ttbar__trig__plus  = (TH1F*)inputfile->Get( "NJetsNBjets__ttbar__trig__plus" )->Clone(); 
+  TH1F * NJetsNBjets__stop__trig__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__stop__trig__plus" )->Clone();  
+  TH1F * NJetsNBjets__dy__trig__plus     = (TH1F*)inputfile->Get( "NJetsNBjets__dy__trig__plus" )->Clone();	
+  TH1F * NJetsNBjets__rare__trig__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__rare__trig__plus" )->Clone();  
+  TH1F * NJetsNBjets__fake__trig__plus   = (TH1F*)inputfile->Get( "NJetsNBjets__fake__trig__plus" )->Clone();  
+  TH1F * NJetsNBjets__ttbar__trig__minus = (TH1F*)inputfile->Get( "NJetsNBjets__ttbar__trig__minus" )->Clone();  
+  TH1F * NJetsNBjets__stop__trig__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__stop__trig__minus" )->Clone(); 
+  TH1F * NJetsNBjets__dy__trig__minus    = (TH1F*)inputfile->Get( "NJetsNBjets__dy__trig__minus" )->Clone();	
+  TH1F * NJetsNBjets__rare__trig__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__rare__trig__minus" )->Clone(); 
+  TH1F * NJetsNBjets__fake__trig__minus  = (TH1F*)inputfile->Get( "NJetsNBjets__fake__trig__minus" )->Clone(); 
+  
+  
+  
   //bool addJES, bool addJER, bool addBTag, bool addLES, bool addQ2, bool addMpts
   if(addJES)  outputfilename+="_JES";
   if(addJER)  outputfilename+="_JER";
@@ -123,6 +164,9 @@ void ProdTemplate(bool addJES, bool addJER, bool addBTag, bool addLES, bool addQ
   if(addLES)  outputfilename+="_LES";
   if(addQ2)   outputfilename+="_Q2";
   if(addMpts) outputfilename+="_Mpts";
+  if(addPU)   outputfilename+="_PU";
+  if(addLept) outputfilename+="_Lep";
+  if(addTrig) outputfilename+="_Trig";
   
   outputfilename+=".root";
   
@@ -277,6 +321,72 @@ void ProdTemplate(bool addJES, bool addJER, bool addBTag, bool addLES, bool addQ
     NJetsNBjets__dy__mpts__minus->Write();      
     NJetsNBjets__rare__mpts__minus->Write();   
     NJetsNBjets__fake__mpts__minus->Write();    
+  }    
+  if(addPU){ 
+    setNjetSel(NJetsNBjets__ttbar__pu__plus,  njetsel);  
+    setNjetSel(NJetsNBjets__stop__pu__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__dy__pu__plus,     njetsel); 
+    setNjetSel(NJetsNBjets__rare__pu__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__fake__pu__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__ttbar__pu__minus, njetsel); 
+    setNjetSel(NJetsNBjets__stop__pu__minus,  njetsel); 
+    setNjetSel(NJetsNBjets__dy__pu__minus,    njetsel); 
+    setNjetSel(NJetsNBjets__rare__pu__minus,  njetsel); 
+    setNjetSel(NJetsNBjets__fake__pu__minus,  njetsel);      
+    NJetsNBjets__ttbar__pu__plus->Write();    
+    NJetsNBjets__stop__pu__plus->Write();     
+    NJetsNBjets__dy__pu__plus->Write();       
+    NJetsNBjets__rare__pu__plus->Write();     
+    NJetsNBjets__fake__pu__plus->Write();     
+    NJetsNBjets__ttbar__pu__minus->Write();   
+    NJetsNBjets__stop__pu__minus->Write();    
+    NJetsNBjets__dy__pu__minus->Write();      
+    NJetsNBjets__rare__pu__minus->Write();   
+    NJetsNBjets__fake__pu__minus->Write();    
+  }   
+  if(addLept){ 
+    setNjetSel(NJetsNBjets__ttbar__lep__plus,  njetsel);  
+    setNjetSel(NJetsNBjets__stop__lep__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__dy__lep__plus,     njetsel); 
+    setNjetSel(NJetsNBjets__rare__lep__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__fake__lep__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__ttbar__lep__minus, njetsel); 
+    setNjetSel(NJetsNBjets__stop__lep__minus,  njetsel); 
+    setNjetSel(NJetsNBjets__dy__lep__minus,    njetsel); 
+    setNjetSel(NJetsNBjets__rare__lep__minus,  njetsel); 
+    setNjetSel(NJetsNBjets__fake__lep__minus,  njetsel);      
+    NJetsNBjets__ttbar__lep__plus->Write();    
+    NJetsNBjets__stop__lep__plus->Write();     
+    NJetsNBjets__dy__lep__plus->Write();       
+    NJetsNBjets__rare__lep__plus->Write();     
+    NJetsNBjets__fake__lep__plus->Write();     
+    NJetsNBjets__ttbar__lep__minus->Write();   
+    NJetsNBjets__stop__lep__minus->Write();    
+    NJetsNBjets__dy__lep__minus->Write();      
+    NJetsNBjets__rare__lep__minus->Write();   
+    NJetsNBjets__fake__lep__minus->Write();    
+  } 
+  if(addTrig){ 
+    setNjetSel(NJetsNBjets__ttbar__trig__plus,  njetsel);  
+    setNjetSel(NJetsNBjets__stop__trig__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__dy__trig__plus,     njetsel); 
+    setNjetSel(NJetsNBjets__rare__trig__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__fake__trig__plus,   njetsel); 
+    setNjetSel(NJetsNBjets__ttbar__trig__minus, njetsel); 
+    setNjetSel(NJetsNBjets__stop__trig__minus,  njetsel); 
+    setNjetSel(NJetsNBjets__dy__trig__minus,    njetsel); 
+    setNjetSel(NJetsNBjets__rare__trig__minus,  njetsel); 
+    setNjetSel(NJetsNBjets__fake__trig__minus,  njetsel);      
+    NJetsNBjets__ttbar__trig__plus->Write();    
+    NJetsNBjets__stop__trig__plus->Write();     
+    NJetsNBjets__dy__trig__plus->Write();       
+    NJetsNBjets__rare__trig__plus->Write();     
+    NJetsNBjets__fake__trig__plus->Write();     
+    NJetsNBjets__ttbar__trig__minus->Write();   
+    NJetsNBjets__stop__trig__minus->Write();    
+    NJetsNBjets__dy__trig__minus->Write();      
+    NJetsNBjets__rare__trig__minus->Write();   
+    NJetsNBjets__fake__trig__minus->Write();    
   }
   
   outputfile->Close();
@@ -287,8 +397,12 @@ void ProdTemplate(bool addJES, bool addJER, bool addBTag, bool addLES, bool addQ
 
 void ProdTemplate(){
   
-  //void ProdTemplate(bool addJES, bool addJER, bool addBTag, bool addLES, bool addQ2, bool addMpts, TString outputfilename)
-   ProdTemplate(true,  true,  true,  true,  true,  true,  "Template", 0);
+  //void ProdTemplate(bool addJES, bool addJER, 
+  		    //bool addBTag, bool addLES, 
+		    //bool addQ2, bool addMpts, 
+		   //bool addPU,   bool addLept,
+		   //bool addTrig,TString outputfilename)
+   ProdTemplate(true,  true,  true,  true,  true,  true, true, true, true, "Template", 0);
    //ProdTemplate(false, true,  true,  true,  true,  true,  "Template", 0);
    //ProdTemplate(true,  false, true,  true,  true,  true,  "Template", 0);
    //ProdTemplate(true,  true,  false, true,  true,  true,  "Template", 0);
