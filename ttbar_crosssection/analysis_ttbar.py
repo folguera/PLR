@@ -1,6 +1,6 @@
 dosysttable = True
 
-dobiasscan  = True
+dobiasscan  = False
 
 # for model building:
 def get_model(signalname):
@@ -114,7 +114,11 @@ print ["up variation         ", "%.1f" %ttbar_up]
 syst_down   = (res['ttbar'][0][0] - res['ttbar'][one_sigma][0][0])/res['ttbar'][0][0]
 syst_up     = (res['ttbar'][one_sigma][0][1] - res['ttbar'][0][0])/res['ttbar'][0][0]
 
+interval = (res['ttbar'][one_sigma][0][1] - res['ttbar'][one_sigma][0][0])/2
+
+
 print ["systdown/up (%)" , "%.1f" %(syst_down*100), "%.1f" %(syst_up*100)]
+print ["the interval is ", interval]
 print ["final cross section ", "%.1f" %ttbar_fit, "-", "%.1f" %(syst_down*ttbar_fit), "+", "%.1f" %(syst_up*ttbar_fit)]
 
 
@@ -166,8 +170,8 @@ print ("------------------------------------------------------------------")
 
 
 if dosysttable:
-	total_up = 0
-	total_down = 0
+	syst = 0
+	tot_uncert =0
 
 	print ["Determine the impact of each systematic"]
 	for p in model.get_parameters([]):
@@ -175,20 +179,21 @@ if dosysttable:
 		model_syst.distribution.set_distribution_parameters(p, width = 0.0, mean = parameter_values[p], range = [parameter_values[p], parameter_values[p]])
 		res_syst = pl_interval(model_syst, 'data', n=1, cls = [one_sigma], signal_process_groups = signal_shapes )
 	
-       		print [ p, "%.4f" %res_syst['ttbar'][0][0] , "%.4f" %res_syst['ttbar'][one_sigma][0][0] , "%.4f" %res_syst['ttbar'][one_sigma][0][1] ]
-	
-		syst_down_excluded   = res_syst['ttbar'][one_sigma][0][0]
-        	syst_up_excluded     = res_syst['ttbar'][one_sigma][0][1]
-	
-		print ["syst contribution down/up", "%.4f" %( syst_down-syst_down_excluded), "%.4f" %(syst_up-syst_up_excluded)]
-	
-		total_up   = total_up   + (syst_down_excluded - syst_down)*(syst_down_excluded - syst_down)
-		total_down = total_down + (syst_up-syst_up_excluded)*(syst_up-syst_up_excluded)
-	
+       		
+		interval_syst = (res_syst['ttbar'][one_sigma][0][1] - res_syst['ttbar'][one_sigma][0][0])/2
+		
+		print ["interval", interval, interval_syst]
+		syst  = (interval**2 - interval_syst**2)**(0.5)
+		tot_uncert = tot_uncert + (syst)**2
+		print ["syst effect of %  ", p, syst*100]
+		print ["syst effect of pb ", p, syst*ttbar_fit]
         	print ["--------------------------------"]
 
-	print ["total syst down/up" ,"%.4f" % total_down**(0.5), "%.4f" %total_up**(0.5)]
-
+	#print ["total syst down/up" ,"%.4f" % total_down**(0.5), "%.4f" %total_up**(0.5)]
+	tot_uncert = tot_uncert**(0.5)
+	print ["total uncert %" , tot_uncert*100]
+	tot_uncert = tot_uncert*ttbar_fit
+	print ["total uncert pb" , tot_uncert]
 
 
 print ("------------------------------------------------------------------")
