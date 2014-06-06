@@ -169,13 +169,14 @@ void PlotFitResults(bool usePostFit){
    
   TFile * inputfile_fit ;
   if(usePostFit) inputfile_fit = new TFile("histos-mle_ttbar.root");
-  else  inputfile_fit = new TFile("HistosForHL.root");
+  else  inputfile_fit = new TFile("RootFiles/HistosForHL_MC.root");
   
   TH1F * hist_NJetsNBjets__rare  = (TH1F*)inputfile_fit->Get( "NJetsNBjets__rare" )->Clone();
   TH1F * hist_NJetsNBjets__fake  = (TH1F*)inputfile_fit->Get( "NJetsNBjets__fake" )->Clone();
   TH1F * hist_NJetsNBjets__dy    = (TH1F*)inputfile_fit->Get( "NJetsNBjets__dy" )->Clone();
   TH1F * hist_NJetsNBjets__ttbar = (TH1F*)inputfile_fit->Get( "NJetsNBjets__ttbar" )->Clone();
   TH1F * hist_NJetsNBjets__stop  = (TH1F*)inputfile_fit->Get( "NJetsNBjets__stop" )->Clone();
+  TH1F * hist_NJetsNBjets__vv    = (TH1F*)inputfile_fit->Get( "NJetsNBjets__vv" )->Clone();
   
   
 
@@ -186,12 +187,14 @@ void PlotFitResults(bool usePostFit){
   hist_NJetsNBjets__fake->SetFillColor(kAzure+8);
   hist_NJetsNBjets__ttbar->SetFillColor(kRed-7);
   hist_NJetsNBjets__stop->SetFillColor(6); 
+  hist_NJetsNBjets__vv->SetFillColor(5+2); 
   
   hs->Add(hist_NJetsNBjets__ttbar);
   hs->Add(hist_NJetsNBjets__dy);
   hs->Add(hist_NJetsNBjets__stop);
   hs->Add(hist_NJetsNBjets__rare);
   hs->Add(hist_NJetsNBjets__fake);
+  hs->Add(hist_NJetsNBjets__vv);
   
   hs->Draw("histo");
   hs->GetXaxis()->SetLabelSize(0.);
@@ -201,7 +204,7 @@ void PlotFitResults(bool usePostFit){
   hs->SetMaximum(13000);
   
   
-  TFile * inputfile_data = new TFile("HistosForHL.root");
+  TFile * inputfile_data = new TFile("RootFiles/HistosForHL_MC.root");
   TH1F * hist_data	   = (TH1F*)inputfile_data->Get( "NJetsNBjets__DATA" )->Clone();
   
   
@@ -211,6 +214,7 @@ void PlotFitResults(bool usePostFit){
   cout <<  "hist_NJetsNBjets__fake  " << hist_NJetsNBjets__fake->GetXaxis()->GetNbins() << " " << hist_NJetsNBjets__fake->GetXaxis()->GetXmin()  << " " << hist_NJetsNBjets__fake->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__ttbar " << hist_NJetsNBjets__ttbar->GetXaxis()->GetNbins()<< " " << hist_NJetsNBjets__ttbar->GetXaxis()->GetXmin() << " " << hist_NJetsNBjets__ttbar->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__stop  " << hist_NJetsNBjets__stop->GetXaxis()->GetNbins() << " " << hist_NJetsNBjets__stop->GetXaxis()->GetXmin()  << " " << hist_NJetsNBjets__stop->GetXaxis()->GetXmax() << endl;
+  cout <<  "hist_NJetsNBjets__vv    " << hist_NJetsNBjets__vv->GetXaxis()->GetNbins()   << " " << hist_NJetsNBjets__vv->GetXaxis()->GetXmin()    << " " << hist_NJetsNBjets__vv->GetXaxis()->GetXmax() << endl;
   
   hist_data->Draw("epsame");
   
@@ -223,6 +227,7 @@ void PlotFitResults(bool usePostFit){
   herrorband->Add(hist_NJetsNBjets__dy);
   herrorband->Add(hist_NJetsNBjets__ttbar);
   herrorband->Add(hist_NJetsNBjets__stop);
+  herrorband->Add(hist_NJetsNBjets__vv);
   
   herrorband->SetMarkerStyle(21) ;
   herrorband->SetMarkerSize(1.2) ;  
@@ -239,6 +244,7 @@ void PlotFitResults(bool usePostFit){
   histo_mc->Add(hist_NJetsNBjets__dy);
   histo_mc->Add(hist_NJetsNBjets__ttbar);
   histo_mc->Add(hist_NJetsNBjets__stop);
+  histo_mc->Add(hist_NJetsNBjets__vv);
   histo_ratio->Divide(histo_ratio, histo_mc, 1, 1);
   histo_ratio->GetXaxis()->SetLabelSize(0.07);
   histo_ratio->GetXaxis()->SetRange(1, 15);
@@ -298,8 +304,8 @@ void PlotFitResults(bool usePostFit){
   //histo_ratio->GetYaxis()->SetNdivisions(5);
   //ratio.Draw("e")
   
-  histo_ratio->SetMinimum(0.001);
-  histo_ratio->SetMaximum(1.999);
+  histo_ratio->SetMinimum(0.49);
+  histo_ratio->SetMaximum(1.51);
   histo_ratio->SetLineColor(0);
   histo_ratio->SetMarkerColor(0);
   
@@ -370,7 +376,8 @@ void PlotFitResults(bool usePostFit){
   qw->AddEntry(hist_NJetsNBjets__fake,    "fake"   ,"f");
   qw->AddEntry(hist_NJetsNBjets__dy,      "Z/#gamma^{*}"   ,"f");
   qw->AddEntry(hist_NJetsNBjets__ttbar,   "t#bar{t}"   ,"f");
-  qw->AddEntry(hist_NJetsNBjets__stop,    "singlt top"   ,"f");
+  qw->AddEntry(hist_NJetsNBjets__stop,    "single top"   ,"f");
+  qw->AddEntry(hist_NJetsNBjets__vv,      "VV"   ,"f");
   
   qw->Draw();
   
@@ -381,7 +388,7 @@ void PlotFitResults(bool usePostFit){
 
 
 void PlotFitResults(){
-
-  PlotFitResults(false);
+  //usePostFit
+  PlotFitResults(true);
 
 }

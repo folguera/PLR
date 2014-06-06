@@ -20,7 +20,7 @@ void CompareSystPlots(TString syst, TString process){
   gStyle->SetOptStat(0); // To display the mean and RMS:   SetOptStat("mr");
 
  
-  TFile * inputfile_fit = new TFile("Template_JES_JER_BTag_LES_Q2_Mpts.root");
+  TFile * inputfile_fit = new TFile("RootFiles/Template_JES_JER_BTag_LES_Q2_Mpts.root");
 
   TH1F * hist_NJetsNBjets__rare         = (TH1F*)inputfile_fit->Get( ("NJetsNBjets__"+process).Data() )->Clone();
   TH1F * hist_NJetsNBjets__rare__minus  = (TH1F*)inputfile_fit->Get( ("NJetsNBjets__"+process+"__"+syst+"__minus").Data() )->Clone();
@@ -74,14 +74,14 @@ void CompareSystPlots(TString syst, TString process){
   qw->AddEntry(hist_NJetsNBjets__rare__plus,    ("NJetsNBjets__"+process+"__"+syst+"__plus").Data()  , "l");
  
   qw->Draw();
-  c1->SaveAs( ("NJetsNBjets__"+process+"__"+syst+".gif").Data());
+  c1->SaveAs( ("plots/NJetsNBjets__"+process+"__"+syst+".gif").Data());
 }
 
 void CompareSystPlots(){
   
   //for ttbar
   CompareSystPlots("jes",  "ttbar");
-  /*CompareSystPlots("jer",  "ttbar");
+  CompareSystPlots("jer",  "ttbar");
   CompareSystPlots("btag", "ttbar");
   CompareSystPlots("les",  "ttbar");
   CompareSystPlots("q2",   "ttbar");
@@ -121,6 +121,6 @@ void CompareSystPlots(){
   CompareSystPlots("q2",   "fake");
   CompareSystPlots("mpts", "fake");
   
-  */
+  
   
 }
