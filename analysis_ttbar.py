@@ -5,7 +5,7 @@ import numpy as n
 
 dosysttable = True
 
-dobiasscan  = True
+dobiasscan  = False
 
 # for model building:
 def get_model(signalname):
@@ -16,7 +16,10 @@ def get_model(signalname):
     # For more info about this model and naming conventuion, see documentation
     # of build_model_from_rootfile.
     #model = build_model_from_rootfile('RootFiles/Template_JES_JER_BTag_LES_Q2_Mpts.root',  include_mc_uncertainties=True)
-    model = build_model_from_rootfile('RootFiles/Template_JES_JER_BTag_LES_Q2_Mpts_VVsplit.root',  include_mc_uncertainties=True)
+    #model = build_model_from_rootfile('RootFiles/Template_JES_JER_BTag_LES_Q2_Mpts.root',  include_mc_uncertainties=True)
+    #model = build_model_from_rootfile('RootFiles/Template_JES_JER_BTag_LES_Q2_Mpts_TopPt_VVsplit.root',  include_mc_uncertainties=True)
+    model = build_model_from_rootfile('RootFiles/TemplateTot_JES_JER_BTag_LES_Q2_Mpts_TopPt.root',  include_mc_uncertainties=True)
+    #model = build_model_from_rootfile('RootFiles/TemplateNJetsNBjets_JES_JER_BTag_LES_Q2_Mpts_TopPt.root',  include_mc_uncertainties=True)
 
     # If the prediction histogram is zero, but data is non-zero, teh negative log-likelihood
     # is infinity which causes problems for some methods. Therefore, we set all histogram
@@ -48,10 +51,10 @@ def get_model(signalname):
     
     model.add_lognormal_uncertainty('rare_rate', math.log(1.20), 'rare')
     model.add_lognormal_uncertainty('fake_rate', math.log(1.99), 'fake')
-    #model.add_lognormal_uncertainty('vv_rate',   math.log(1.23), 'vv'  )
-    model.add_lognormal_uncertainty('ww_rate',   math.log(1.23), 'ww'  )
-    model.add_lognormal_uncertainty('zz_rate',   math.log(1.23), 'zz'  )
-    model.add_lognormal_uncertainty('wz_rate',   math.log(1.23), 'wz'  )
+    model.add_lognormal_uncertainty('vv_rate',   math.log(1.23), 'vv'  )
+    #model.add_lognormal_uncertainty('ww_rate',   math.log(1.23), 'ww'  )
+    #model.add_lognormal_uncertainty('zz_rate',   math.log(1.23), 'zz'  )
+    #model.add_lognormal_uncertainty('wz_rate',   math.log(1.23), 'wz'  )
 
 	
 	
@@ -60,7 +63,7 @@ def get_model(signalname):
     	#if p == 'dy': continue
     	if p == 'fake': continue
     	model.add_lognormal_uncertainty('lumi',        math.log(1.026), p)
-        model.add_lognormal_uncertainty('TrigLept',    math.log(1.02), p)
+        model.add_lognormal_uncertainty('TrigLept',    math.log(1.013), p)
 	
 	
 	
