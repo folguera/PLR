@@ -11,7 +11,7 @@
 #include <iostream>
 
 
-void PlotFitResults(bool usePostFit){
+void PlotFitResults(bool usePostFit, TString distrib, TString inputfilename){
   
   
       
@@ -169,14 +169,14 @@ void PlotFitResults(bool usePostFit){
    
   TFile * inputfile_fit ;
   if(usePostFit) inputfile_fit = new TFile("histos-mle_ttbar.root");
-  else  inputfile_fit = new TFile("RootFiles/HistosForHL_MC.root");
+  else  inputfile_fit = new TFile(inputfilename);
   
-  TH1F * hist_NJetsNBjets__rare  = (TH1F*)inputfile_fit->Get( "NJetsNBjets__rare" )->Clone();
-  TH1F * hist_NJetsNBjets__fake  = (TH1F*)inputfile_fit->Get( "NJetsNBjets__fake" )->Clone();
-  TH1F * hist_NJetsNBjets__dy    = (TH1F*)inputfile_fit->Get( "NJetsNBjets__dy" )->Clone();
-  TH1F * hist_NJetsNBjets__ttbar = (TH1F*)inputfile_fit->Get( "NJetsNBjets__ttbar" )->Clone();
-  TH1F * hist_NJetsNBjets__stop  = (TH1F*)inputfile_fit->Get( "NJetsNBjets__stop" )->Clone();
-  TH1F * hist_NJetsNBjets__vv    = (TH1F*)inputfile_fit->Get( "NJetsNBjets__vv" )->Clone();
+  TH1F * hist_NJetsNBjets__rare  = (TH1F*)inputfile_fit->Get( (distrib+"__rare").Data() )->Clone();
+  TH1F * hist_NJetsNBjets__fake  = (TH1F*)inputfile_fit->Get( (distrib+"__fake").Data() )->Clone();
+  TH1F * hist_NJetsNBjets__dy    = (TH1F*)inputfile_fit->Get( (distrib+"__dy").Data() )->Clone();
+  TH1F * hist_NJetsNBjets__ttbar = (TH1F*)inputfile_fit->Get( (distrib+"__ttbar").Data() )->Clone();
+  TH1F * hist_NJetsNBjets__stop  = (TH1F*)inputfile_fit->Get( (distrib+"__stop").Data() )->Clone();
+  TH1F * hist_NJetsNBjets__vv    = (TH1F*)inputfile_fit->Get( (distrib+"__vv").Data() )->Clone();
   
   
 
@@ -201,20 +201,22 @@ void PlotFitResults(bool usePostFit){
   hs->GetYaxis()->SetLabelSize(0.03);
   hs->GetYaxis()->SetTitle("Events");
   hs->GetYaxis()->SetTitleSize(0.04);
-  hs->SetMaximum(30000);
+  if(distrib=="NJetsNBjets") hs->SetMaximum(30000);
+  if(distrib=="InvMass") hs->SetMaximum(8000);
+  
+  TFile * inputfile_data = new TFile(inputfilename);
+  TH1F * hist_data	   = (TH1F*)inputfile_data->Get( (distrib+"__DATA").Data() )->Clone();
   
   
-  TFile * inputfile_data = new TFile("RootFiles/HistosForHL_MC.root");
-  TH1F * hist_data	   = (TH1F*)inputfile_data->Get( "NJetsNBjets__DATA" )->Clone();
-  
-  
-  cout <<  "hist_data               " << hist_data->GetXaxis()->GetNbins()              << " " << hist_data->GetXaxis()->GetXmin()               << " " << hist_data->GetXaxis()->GetXmax() << endl;
+  /*cout <<  "hist_data               " << hist_data->GetXaxis()->GetNbins()              << " " << hist_data->GetXaxis()->GetXmin()               << " " << hist_data->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__rare  " << hist_NJetsNBjets__rare->GetXaxis()->GetNbins() << " " << hist_NJetsNBjets__rare->GetXaxis()->GetXmin()  << " " << hist_NJetsNBjets__rare->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__dy    " << hist_NJetsNBjets__dy->GetXaxis()->GetNbins()   << " " << hist_NJetsNBjets__dy->GetXaxis()->GetXmin()    << " " << hist_NJetsNBjets__dy->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__fake  " << hist_NJetsNBjets__fake->GetXaxis()->GetNbins() << " " << hist_NJetsNBjets__fake->GetXaxis()->GetXmin()  << " " << hist_NJetsNBjets__fake->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__ttbar " << hist_NJetsNBjets__ttbar->GetXaxis()->GetNbins()<< " " << hist_NJetsNBjets__ttbar->GetXaxis()->GetXmin() << " " << hist_NJetsNBjets__ttbar->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__stop  " << hist_NJetsNBjets__stop->GetXaxis()->GetNbins() << " " << hist_NJetsNBjets__stop->GetXaxis()->GetXmin()  << " " << hist_NJetsNBjets__stop->GetXaxis()->GetXmax() << endl;
   cout <<  "hist_NJetsNBjets__vv    " << hist_NJetsNBjets__vv->GetXaxis()->GetNbins()   << " " << hist_NJetsNBjets__vv->GetXaxis()->GetXmin()    << " " << hist_NJetsNBjets__vv->GetXaxis()->GetXmax() << endl;
+  */
+  hist_data->SetMarkerStyle(20);
   
   hist_data->Draw("epsame");
   
@@ -247,8 +249,9 @@ void PlotFitResults(bool usePostFit){
   histo_mc->Add(hist_NJetsNBjets__vv);
   histo_ratio->Divide(histo_ratio, histo_mc, 1, 1);
   histo_ratio->GetXaxis()->SetLabelSize(0.07);
-  histo_ratio->GetXaxis()->SetRange(1, 15);
-  histo_ratio->GetXaxis()->SetTitle("(NJets,NBJets)");
+  //if(distrib=="NJetsNBjets") histo_ratio->GetXaxis()->SetRange(1, 15);
+  if(distrib=="NJetsNBjets") histo_ratio->GetXaxis()->SetTitle("(NJets,NBJets)");
+  if(distrib=="InvMass")     histo_ratio->GetXaxis()->SetTitle("(NJets,NBJets)");
   
      
   TGraphAsymmErrors *theRatio = new TGraphAsymmErrors(histo_ratio);
@@ -309,22 +312,24 @@ void PlotFitResults(bool usePostFit){
   histo_ratio->SetLineColor(0);
   histo_ratio->SetMarkerColor(0);
   
-  histo_ratio->GetXaxis()->SetBinLabel(1, "(0,0)");
-  histo_ratio->GetXaxis()->SetBinLabel(2, "(1,0)");
-  histo_ratio->GetXaxis()->SetBinLabel(3, "(1,1)");
-  histo_ratio->GetXaxis()->SetBinLabel(4, "(2,0)");
-  histo_ratio->GetXaxis()->SetBinLabel(5, "(2,1)");
-  histo_ratio->GetXaxis()->SetBinLabel(6, "(2,2)");
-  histo_ratio->GetXaxis()->SetBinLabel(7, "(3,0)");
-  histo_ratio->GetXaxis()->SetBinLabel(8, "(3,1)");
-  histo_ratio->GetXaxis()->SetBinLabel(9, "(3,2)");
-  histo_ratio->GetXaxis()->SetBinLabel(10, "(3,3)");
-  histo_ratio->GetXaxis()->SetBinLabel(11, "(4,0)");
-  histo_ratio->GetXaxis()->SetBinLabel(12, "(4,1)");
-  histo_ratio->GetXaxis()->SetBinLabel(13, "(4,2)");
-  histo_ratio->GetXaxis()->SetBinLabel(14, "(4,3)");
-  histo_ratio->GetXaxis()->SetBinLabel(14, "(4,>3)");
   
+  if(distrib=="NJetsNBjets"){
+    histo_ratio->GetXaxis()->SetBinLabel(1, "(0,0)");
+    histo_ratio->GetXaxis()->SetBinLabel(2, "(1,0)");
+    histo_ratio->GetXaxis()->SetBinLabel(3, "(1,1)");
+    histo_ratio->GetXaxis()->SetBinLabel(4, "(2,0)");
+    histo_ratio->GetXaxis()->SetBinLabel(5, "(2,1)");
+    histo_ratio->GetXaxis()->SetBinLabel(6, "(2,2)");
+    histo_ratio->GetXaxis()->SetBinLabel(7, "(3,0)");
+    histo_ratio->GetXaxis()->SetBinLabel(8, "(3,1)");
+    histo_ratio->GetXaxis()->SetBinLabel(9, "(3,2)");
+    histo_ratio->GetXaxis()->SetBinLabel(10, "(3,3)");
+    histo_ratio->GetXaxis()->SetBinLabel(11, "(4,0)");
+    histo_ratio->GetXaxis()->SetBinLabel(12, "(4,1)");
+    histo_ratio->GetXaxis()->SetBinLabel(13, "(4,2)");
+    histo_ratio->GetXaxis()->SetBinLabel(14, "(4,3)");
+    histo_ratio->GetXaxis()->SetBinLabel(14, "(4,>3)");
+  }
    
   
   
@@ -389,6 +394,9 @@ void PlotFitResults(bool usePostFit){
 
 void PlotFitResults(){
   //usePostFit
-  PlotFitResults(true);
+  PlotFitResults(false, "NJetsNBjets", "RootFiles/Jun22_Jet30_CSVT_TopPtLepSysMll_DD.root");
+  
+  
+  //PlotFitResults(true, "InvMass");
 
 }
